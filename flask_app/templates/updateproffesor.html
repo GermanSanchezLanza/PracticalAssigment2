@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+{% block title %} Actualizar Profesor {% endblock %}
+{% block content %} 
+
+<section class="section">
+    <div class="column">
+        <form action="{{url_for('proffesor_put_json')}}" method="POST">
+            <input type="hidden" class="form-control" id="id" name="id" value='{{ proffesor[0].id }}' placeholder="Inserte los nombres">
+           
+            <div class="form-group">
+                <label for="txtFirstName">Nombres:</label>
+                <input type="text" class="form-control" id="firstName" name="first_name" value='{{ proffesor[0].first_name }}' placeholder="Inserte los nombres">
+            </div>            
+            <div class="form-group">
+                <label for="txtLastName">Apellidos:</label>
+                <input type="text" class="form-control" id="lastName" name = "last_name" value="{{ proffesor[0].last_name }}" placeholder="Inserte los apellidos">
+            </div>            
+            <div class="form-group">
+                <label for="txtCity">Ciudad:</label>
+                <input type="text" class="form-control" id="city" name = "city" value="{{ proffesor[0].city }}" placeholder="Inserte la ciudad">
+            </div>            
+            <div class="form-group">
+                <label for="txtAddress">Dirección:</label>
+                <input type="text" class="form-control" id="address" name ="address" value="{{ proffesor[0].address }}" placeholder="Inserte la dirección">
+            </div>            
+            <div class="form-group">
+                <label for="txtSalary">Salario:</label>
+                <input type="number" class="form-control" id="salary" name="salary" value="{{ proffesor[0].salary }}" placeholder="Inserte el salario">
+            </div>            
+            <button type="submit" class="btn btn-success mt-2">Actualizar</button>
+            <a href="{{url_for('proffesor_list')}}" class="btn btn-primary mt-2">Volver</a>
+        </form>        
+    </div>
+</section>
+
+{% endblock %}

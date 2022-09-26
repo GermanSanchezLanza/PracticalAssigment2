@@ -1,0 +1,69 @@
+{% extends "index.html" %}
+{% block title %} Lista de Profesores {% endblock %}
+{% block content %} 
+
+<script type="text/javascript">        
+    function clickDelete(id)
+    {
+        var id = id;
+        document.getElementById('idDelete').value = id;
+    }
+</script>
+
+<div class="text-right">
+    <a href="{{url_for('proffesor_add')}}" class="btn btn-success mb-2"><i class="bi bi-plus-circle"><b> Añadir nuevo profesor</b></i></a>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>						
+                <th hidden="true">ID</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Ciudad</th>
+                <th>Dirección</th>
+                <th>Salario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proffesor in proffesors: %}
+            <tr>
+                <td hidden="true">{{ proffesor.id }}</td>
+                <td>{{ proffesor.first_name }}</td>
+                <td>{{ proffesor.last_name }}</td>
+                <td>{{ proffesor.city }}</td>
+                <td>{{ proffesor.address }}</td>
+                <td>{{ proffesor.salary }}</td>
+                <td>
+                    <a  href="{{url_for('proffesor_update', id=proffesor.id)}}" class="btn btn-primary mr-1"><i class="bi bi-pencil"></i></a>
+                    <a  onclick="clickDelete({{ proffesor.id }})" href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="bi bi-person-x"></i></a>
+                </td>
+            </tr>
+            {% endfor %}            
+        </tbody>
+    </table>
+    <div id="deleteEmployeeModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+                <form action="{{url_for('proffesor_delete_json')}}" method="POST">
+                    <input type="hidden"  id="idDelete" name="idDelete">
+                   
+					<div class="modal-header">						
+						<h4 class="modal-title">Eliminar profesor</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<p>¿Estás seguro de eliminar?</p>
+						<p class="text-warning"><small>Es una acción que no es reversible.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+						<input  type="submit" class="btn btn-danger" value="Eliminar">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>	
+
+</div>
+
+{% endblock %}
